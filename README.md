@@ -4,7 +4,7 @@
 
 **Nombre:** Nicolas David Garzón Avendaño  
 **Email:** ngarzonavendano@gmail.com  
-**Tiempo de desarrollo:** 7-8 horas
+**Tiempo de desarrollo:** 10-11 horas
 
 ## Descripción del Proyecto
 
