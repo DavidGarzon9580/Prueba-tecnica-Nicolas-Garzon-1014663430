@@ -1,0 +1,58 @@
+<div class="register-container">
+  <mat-card class="register-card">
+    <div class="register-header">
+      <h1 class="register-title">
+        <mat-icon>person_add</mat-icon>
+        Registrar Usuario
+      </h1>
+      <p class="register-subtitle">Crea tu cuenta para comenzar a usar la aplicación</p>
+    </div>
+    
+    <div class="register-form">
+      <form [formGroup]="userForm">
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>info</mat-icon>
+            Información Personal
+          </h3>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre completo</mat-label>
+              <input matInput formControlName="nombre" placeholder="Tu nombre completo">
+              <mat-icon matPrefix>person</mat-icon>
+              <mat-error *ngIf="hasError('nombre', 'required')">El nombre es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Correo electrónico</mat-label>
+              <input matInput formControlName="correo" placeholder="tu@email.com" type="email">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error *ngIf="hasError('correo', 'required')">El correo es requerido</mat-error>
+              <mat-error *ngIf="hasError('correo', 'email')">Correo inválido</mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" placeholder="Mínimo 6 caracteres" type="password">
+            <mat-icon matPrefix>lock</mat-icon>
+            <mat-error *ngIf="hasError('password', 'required')">La contraseña es requerida</mat-error>
+            <mat-error *ngIf="hasError('password', 'minlength')">La contraseña debe tener al menos 6 caracteres</mat-error>
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="userForm.invalid" class="register-button">
+          <mat-icon>person_add</mat-icon>
+          Crear Cuenta
+        </button>
+      </form>
+      
+      <div class="login-link">
+        <p>¿Ya tienes una cuenta? 
+          <a routerLink="/login">Inicia sesión aquí</a>
+        </p>
+      </div>
+    </div>
+  </mat-card>
+</div>

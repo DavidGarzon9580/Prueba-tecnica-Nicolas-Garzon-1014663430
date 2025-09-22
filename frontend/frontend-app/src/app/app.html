@@ -1,0 +1,31 @@
+<div class="app-container">
+  <mat-toolbar>
+    <mat-icon>pets</mat-icon>
+    <span>SAB Technology - Sistema de Usuarios y Mascotas</span>
+    <span class="spacer"></span>
+    <button mat-button routerLink="/dashboard" *ngIf="checkAuth()">
+      <mat-icon>dashboard</mat-icon>
+      Dashboard
+    </button>
+    <button mat-button routerLink="/register-user" *ngIf="checkAuth()">
+      <mat-icon>person_add</mat-icon>
+      Registrar Usuario
+    </button>
+    <button mat-button routerLink="/register-pet" *ngIf="checkAuth()">
+      <mat-icon>pets</mat-icon>
+      Registrar Mascota
+    </button>
+    <button mat-button routerLink="/list-pets" *ngIf="checkAuth()">
+      <mat-icon>list</mat-icon>
+      Ver Mascotas
+    </button>
+    <button mat-button (click)="logout()" *ngIf="checkAuth()">
+      <mat-icon>logout</mat-icon>
+      Cerrar Sesión
+    </button>
+  </mat-toolbar>
+
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+</div>

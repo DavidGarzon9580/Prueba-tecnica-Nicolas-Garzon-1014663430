@@ -1,0 +1,45 @@
+<div class="login-container">
+  <mat-card class="login-card page-card">
+    <div class="login-header page-card-header">
+      <h1 class="login-title page-card-title">
+        <mat-icon>login</mat-icon>
+        Iniciar Sesión
+      </h1>
+      <p class="login-subtitle page-card-subtitle">Accede a tu cuenta para continuar</p>
+    </div>
+    
+    <div class="login-form page-card-content">
+      <form [formGroup]="loginForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electrónico</mat-label>
+          <input matInput formControlName="correo" placeholder="tu@email.com" type="email">
+          <mat-icon matPrefix>email</mat-icon>
+          <mat-error *ngIf="hasError('correo', 'required')">El correo es requerido</mat-error>
+          <mat-error *ngIf="hasError('correo', 'email')">Correo inválido</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" placeholder="Tu contraseña" type="password">
+          <mat-icon matPrefix>lock</mat-icon>
+          <mat-error *ngIf="hasError('password', 'required')">La contraseña es requerida</mat-error>
+          <mat-error *ngIf="hasError('password', 'minlength')">La contraseña debe tener al menos 6 caracteres</mat-error>
+        </mat-form-field>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="loginForm.invalid || loading" class="submit-button">
+          <div *ngIf="loading" class="loading-spinner"></div>
+          <mat-icon *ngIf="!loading">login</mat-icon>
+          {{ loading ? 'Iniciando sesión...' : 'Iniciar Sesión' }}
+        </button>
+      </form>
+      
+      <div class="register-link">
+        <p>¿No tienes una cuenta? 
+          <a mat-button color="primary" routerLink="/register-user">Regístrate aquí</a>
+        </p>
+      </div>
+    </div>
+  </mat-card>
+</div>
+
+

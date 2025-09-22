@@ -1,0 +1,75 @@
+<div class="register-pet-container">
+  <mat-card class="register-pet-card">
+    <div class="register-pet-header">
+      <h1 class="register-pet-title">
+        <mat-icon>pets</mat-icon>
+        Registrar Mascota
+      </h1>
+      <p class="register-pet-subtitle">Asocia una nueva mascota a un usuario existente</p>
+    </div>
+    
+    <div class="register-pet-form">
+      <form [formGroup]="petForm">
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>info</mat-icon>
+            Información de la Mascota
+          </h3>
+          
+          <div class="form-row">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombre de la mascota</mat-label>
+              <input matInput formControlName="nombre" placeholder="Ej: Max, Luna, Rocky">
+              <mat-icon matPrefix>pets</mat-icon>
+              <mat-error *ngIf="hasError('nombre', 'required')">El nombre es requerido</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Raza</mat-label>
+              <input matInput formControlName="raza" placeholder="Ej: Golden Retriever, Persa">
+              <mat-icon matPrefix>category</mat-icon>
+              <mat-error *ngIf="hasError('raza', 'required')">La raza es requerida</mat-error>
+            </mat-form-field>
+          </div>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Edad (años)</mat-label>
+            <input matInput type="number" formControlName="edad" placeholder="Edad en años">
+            <mat-icon matPrefix>cake</mat-icon>
+            <mat-error *ngIf="hasError('edad', 'required')">La edad es requerida</mat-error>
+            <mat-error *ngIf="hasError('edad', 'min')">La edad debe ser mayor a 0</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-section">
+          <h3 class="section-title">
+            <mat-icon>person</mat-icon>
+            Asignar a Usuario
+          </h3>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Seleccionar Usuario</mat-label>
+            <mat-select formControlName="usuario_id">
+              <mat-option *ngFor="let usuario of users" [value]="usuario.id">
+                {{ usuario.nombre }} ({{ usuario.correo }})
+              </mat-option>
+            </mat-select>
+            <mat-icon matPrefix>person</mat-icon>
+            <mat-error *ngIf="hasError('usuario_id', 'required')">Debes seleccionar un usuario</mat-error>
+          </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="primary" (click)="submit()" [disabled]="petForm.invalid" class="register-pet-button">
+          <mat-icon>pets</mat-icon>
+          Registrar Mascota
+        </button>
+      </form>
+      
+      <div class="back-link">
+        <p>¿Quieres volver al dashboard? 
+          <a routerLink="/dashboard">Ir al Dashboard</a>
+        </p>
+      </div>
+    </div>
+  </mat-card>
+</div>

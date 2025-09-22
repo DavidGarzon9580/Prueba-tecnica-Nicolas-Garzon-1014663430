@@ -1,0 +1,102 @@
+<div class="list-pets-container">
+  <mat-card class="list-pets-card">
+    <div class="list-pets-header">
+      <h1 class="list-pets-title">
+        <mat-icon>pets</mat-icon>
+        Lista de Mascotas
+      </h1>
+      <p class="list-pets-subtitle">Consulta las mascotas registradas por usuario</p>
+    </div>
+    
+    <div class="list-pets-content">
+      <div class="search-section">
+        <div class="search-card">
+          <div class="search-form">
+            <mat-form-field appearance="outline" class="search-field">
+              <mat-label>Seleccionar Usuario</mat-label>
+              <mat-select [(ngModel)]="selectedUserId" (selectionChange)="onUserChange()">
+                <mat-option *ngFor="let usuario of users" [value]="usuario.id">
+                  {{ usuario.nombre }} ({{ usuario.correo }})
+                </mat-option>
+              </mat-select>
+              <mat-icon matPrefix>person</mat-icon>
+            </mat-form-field>
+            
+            <button mat-raised-button color="primary" (click)="loadPets()" [disabled]="!selectedUserId" class="search-button">
+              <mat-icon>search</mat-icon>
+              Buscar
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="results-section">
+        <div *ngIf="loading" class="loading-container">
+          <div class="loading-spinner"></div>
+          <p>Cargando mascotas...</p>
+        </div>
+
+        <div *ngIf="!loading && selectedUserId && pets.length > 0">
+          <div class="results-header">
+            <div class="results-count">
+              <mat-icon>pets</mat-icon>
+              {{ pets.length }} mascota{{ pets.length !== 1 ? 's' : '' }} encontrada{{ pets.length !== 1 ? 's' : '' }}
+            </div>
+            <button mat-button (click)="loadPets()" class="clear-button">
+              <mat-icon>refresh</mat-icon>
+              Actualizar
+            </button>
+          </div>
+
+          <div class="pets-grid">
+            <div *ngFor="let pet of pets" class="pet-card">
+              <div class="pet-header">
+                <h3 class="pet-name">
+                  <mat-icon>pets</mat-icon>
+                  {{ pet.nombre }}
+                </h3>
+                <p class="pet-owner">Propietario: {{ getOwnerName(pet.usuario_id) }}</p>
+              </div>
+              
+              <div class="pet-content">
+                <div class="pet-info">
+                  <div class="pet-detail">
+                    <mat-icon>category</mat-icon>
+                    <div>
+                      <div class="pet-detail-label">Raza</div>
+                      <div class="pet-detail-value">{{ pet.raza }}</div>
+                    </div>
+                  </div>
+                  
+                  <div class="pet-detail">
+                    <mat-icon>cake</mat-icon>
+                    <div>
+                      <div class="pet-detail-label">Edad</div>
+                      <div class="pet-detail-value">{{ pet.edad }} años</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="!loading && selectedUserId && pets.length === 0" class="no-pets">
+          <mat-icon>info</mat-icon>
+          <h3>No hay mascotas registradas</h3>
+          <p>Este usuario no tiene mascotas registradas en el sistema.</p>
+        </div>
+
+        <div *ngIf="!loading && !selectedUserId" class="no-pets">
+          <mat-icon>person_search</mat-icon>
+          <h3>Selecciona un usuario</h3>
+          <p>Elige un usuario de la lista para ver sus mascotas registradas.</p>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+
+  <button mat-fab color="primary" (click)="goBack()" class="back-button" title="Volver al Dashboard">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
